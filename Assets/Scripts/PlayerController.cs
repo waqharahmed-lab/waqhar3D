@@ -5,24 +5,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour 
 
 {
-    public float speed = 15.0f;         // Slower speed for manageable control
-    public float turnSpeed = 45.0f;
+    public float speed = 15.0f;        // Forward/backward movement speed
+    public float turnSpeed = 50.0f;    // Turning speed
     private float horizontalInput;
     private float verticalInput;
 
     void Update()
     {
         // Get user input
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");  // A/D or Left/Right arrows
+        verticalInput = Input.GetAxis("Vertical");      // W/S or Up/Down arrows
 
-        // Move the plane forward
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        // Move the car forward and backward
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
 
-        // Tilt the plane up/down when pressing Up/Down arrows
-        transform.Rotate(Vector3.right * verticalInput * turnSpeed * Time.deltaTime);
-
-        // Turn the plane left/right
-        transform.Rotate(Vector3.up * horizontalInput * turnSpeed * Time.deltaTime);
+        // Turn the car left and right
+        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
     }
 }
